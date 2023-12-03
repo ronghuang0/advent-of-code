@@ -88,4 +88,3 @@ for(let v in hash){
         res+=hash[v][0]*hash[v][1];
     }
 }
-console.log('res', res);
