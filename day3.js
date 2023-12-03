@@ -54,7 +54,6 @@ for(let i=0; i<140;i++){
         }
     }
 }
-console.log('res', res1);
 
 // part 2
 let hash = {};
