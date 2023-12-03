@@ -73,7 +73,6 @@ for(let i=0; i<140;i++){
             let end = [i, curr];
             let adj = isAdj(start, end);
             if(adj){
-                console.log('number', number);
                 let [r, c] = adj;
                 if(!hash[`${r}-${c}`]) {
                     hash[`${r}-${c}`] = [];
