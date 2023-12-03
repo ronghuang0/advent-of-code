@@ -47,7 +47,6 @@ for(let i=0; i<140;i++){
             let start = [i,j];
             let end = [i, curr];
             if(isAdj(start, end)){
-                console.log('number', number);
                 res1+=Number(number);
             }
             j=curr+1;
