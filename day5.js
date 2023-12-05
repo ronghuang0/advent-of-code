@@ -100,13 +100,13 @@ temperatureToHumidity.forEach((e,i)=>temperatureToHumidity[i]=e.split(' '));
 
 humidityToLocation = humidityToLocation.split(/\r?\n|\r|\n/g);
 humidityToLocation.forEach((e,i)=>humidityToLocation[i]=e.split(' '));
-let res = Infinity;
-for(let i=0;i<1000000000;i++){
-    let dog = findNext(findNext(findNext(findNext(findNext(findNext(findNext(0, humidityToLocation), temperatureToHumidity), lightToTemperature), waterToLight), fertilizerToWater), soilToFertilizer), seedToSoil);
+for(let i=100000000;i>0;i--){
+    let dog = findNext(findNext(findNext(findNext(findNext(findNext(findNext(i, humidityToLocation), temperatureToHumidity), lightToTemperature), waterToLight), fertilizerToWater), soilToFertilizer), seedToSoil);
     for(let j=0;j<ranges.length;j++){
         if(dog>=ranges[j][0] && dog<=ranges[j][1]){
-            res = i;
+            console.log('i', i);
         }
     }
 }
-console.log('res', res);
+
+// 60294664
