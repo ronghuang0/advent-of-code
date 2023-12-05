@@ -12,23 +12,63 @@ blocks = blocks.map(block => {
 console.log('seeds', seeds);
 console.log('blocks', blocks);
 
-// part 1
+let part1 = () => {
+    for(let block of blocks){
+        seeds = seeds.map(seed => {
+            for(let line of block){
+                let [dest, src, range] = line;
+                if(seed>=src && seed<(src+range)){
+                    return seed+dest-src;
+                }
+            }
+            return seed;
+        })
+    }
+    let min = Infinity;
+    for(let seed of seeds){
+        min = Math.min(min, seed);
+    }
+    console.log('min', min);
+}
 
-for(let block of blocks){
-    seeds = seeds.map(seed => {
-        for(let line of block){
-            let [dest, src, range] = line;
-            if(seed>=src && seed<(src+range)){
-                return seed+dest-src;
+let part2 = () => {
+    let seedRanges = [];
+    for(let i=0;i<seeds.length;i+=2){
+        seedRanges.push([seeds[i], seeds[i]+seeds[i+1]-1]); // start, end, inclusive
+    }
+
+    for(let block of blocks){
+        let next = [];
+        while(seedRanges.length > 0){
+            let seedRange = seedRanges.pop();
+            let noOverlap = true;
+            for(let line of block){
+                let [dest, src, range] = line;
+                let [start, end] = seedRange;
+                let nStart = Math.max(start, src);
+                let nEnd = Math.min(end, src+range-1);
+                if(nStart <= nEnd){
+                    next.push([nStart+dest-src, nEnd+dest-src]);
+                    if(end > src+range-1){
+                        seedRanges.push([src+range, end]);
+                    }
+                    if(start < src) {
+                        seedRanges.push([start, src-1]);
+                    }
+                    noOverlap = false;
+                    break;
+                }
+            }
+            if(noOverlap){
+                next.push(seedRange);
             }
         }
-        return seed;
-    })
+        seedRanges = next;
+    }
+    let min = Infinity;
+    for(let i=0;i<seedRanges.length;i++){
+        min = Math.min(seedRanges[i][0], min);
+    }
+    console.log('min', min);
 }
-let min = Infinity;
-for(let seed of seeds){
-    min = Math.min(min, seed);
-}
-console.log('min', min);
-
 
