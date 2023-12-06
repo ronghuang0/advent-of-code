@@ -1,64 +1,18 @@
-var fs = require('fs');
+const fs = require('fs');
+const data = fs.readFileSync('input.txt', 'utf8');
 
-var data = fs.readFileSync('input.txt', 'utf8');
-var arr = data.trim().split(/\r?\n|\r|\n/g);
-let map = {
-    'one': '1',
-    'two': '2',
-    'three':'3',
-    'four': '4',
-    'five': '5',
-    'six': '6',
-    'seven': '7',
-    'eight': '8',
-    'nine': '9'
-}
-let findCode = (str)=>{
-    let first=1000;
-    let last = -1;
-    let firstAlpha;
-    let lastAlpha;
-    for(let n in map){
-        let pos = str.indexOf(n);
-        if(pos !== -1){
-            if(pos < first){
-                first = pos;
-                firstAlpha = map[n];
-            }
-        }
-        pos = str.lastIndexOf(n);
-        if(pos !== -1){
-            if(pos > last){
-                last = pos;
-                lastAlpha = map[n];
-            }
-        }
-    }
-    for(let i=0;i<str.length;i++){
-        if(!isNaN(str[i])){
-            if(i<first){
-                firstAlpha = str[i];
-            }
-            break;
-        }
-    }
-    for(let i=str.length-1;i>=0;i--){
-        if(!isNaN(str[i])){
-            if(i>last){
-                lastAlpha = str[i];
-            }
-            break;
-        }
-    }
-    console.log('firstAlpha', firstAlpha);
-    console.log('lastAlpha', lastAlpha);
-    return Number(firstAlpha+lastAlpha);
-}
+let lines = data.trim().split('\r\n');
 let res = 0;
-for(let i=0;i<arr.length;i++){
-    let num = findCode(arr[i]);
-    
-    console.log('num',num);
-    res+=num;
+let nums = ['', 'one', 'two', 'three', 'four', 'five', 'six', 'seven', 'eight', 'nine'];
+for(let line of lines){
+    let re = /(?=(one|two|three|four|five|six|seven|eight|nine|\d))/g;
+    let digits = [...line.matchAll(re)].map(e=>e[1]);
+    digits = digits.map(e=>{
+        if(!isNaN(e)){
+            return e;
+        }
+        return String(nums.indexOf(e));
+    });
+    res += Number(digits[0] + digits[digits.length-1]);
 }
-console.log(res);
+console.log('res', res);
