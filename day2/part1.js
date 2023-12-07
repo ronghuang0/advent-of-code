@@ -1,9 +1,8 @@
 const fs = require('fs');
 const data = fs.readFileSync('input.txt', 'utf8');
 
-var games = data.trim().split('\n');
-
 let res = 0;
+const games = data.trim().split('\n');
 for(let i=0;i<games.length;i++){
     let game = games[i].split(':')[1].trim().split('; ');
     let valid = true;
