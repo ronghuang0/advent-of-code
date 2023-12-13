@@ -18,6 +18,12 @@ for(let key in map){
     }
 }
 
+let g = (a,b) => {
+    if(b === 0){
+        return a;
+    }
+    return g(b, a%b)
+}
 
 function gcd(a, b) { 
     for (let temp = b; b !== 0;) { 
@@ -52,14 +58,14 @@ let findSteps = (str) =>{
     return steps;
 }
 
-let steps = [];
-for(let i=0;i<currs.length;i++){
-    steps.push(findSteps(currs[i]));
-}
-console.log('steps', steps);
+// let steps = [];
+// for(let i=0;i<currs.length;i++){
+//     steps.push(findSteps(currs[i]));
+// }
+// console.log('steps', steps);
 
-let res = steps[0];
-for(let i=1;i<steps.length;i++){
-    res = lcm(steps[i], res)
-}
-console.log('res', res);
+// let res = steps[0];
+// for(let i=1;i<steps.length;i++){
+//     res = lcm(steps[i], res)
+// }
+// console.log('res', res);
